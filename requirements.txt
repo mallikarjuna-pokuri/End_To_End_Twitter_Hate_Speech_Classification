@@ -1,0 +1,11 @@
+pandas
+numpy
+seaborn
+matplotlib
+tensorflow
+nltk
+scikit-learn
+Flask
+ensure
+python-box
+-e .
