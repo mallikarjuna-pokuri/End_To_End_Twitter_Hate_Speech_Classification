@@ -52,8 +52,8 @@ class ConfigurationManager:
     def model_trainer_params(self) ->ModelTrainerParmas:
         params = self.params.model_trainer_params
         model_trainer_params = ModelTrainerParmas(
-            maxlen = params.maxlen
-            vocab_size= parmas.vocab_size
+            maxlen = params.maxlen,
+            vocab_size= params.vocab_size
         )
         return model_trainer_params
     def model_evaluate_config(self) -> ModelEvaluateConfig:

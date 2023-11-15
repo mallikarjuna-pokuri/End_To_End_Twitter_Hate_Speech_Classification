@@ -8,10 +8,10 @@ import nltk
 from nltk.corpus import stopwords
 import pandas as pd
 from src.utils.common import transformed_text,tokenized_text
-from tensorflow.keras.preprocessing.text import Tokenizer
+from keras.preprocessing.text import Tokenizer
 from sklearn.model_selection import train_test_split
 import numpy as np
-
+import joblib
 
 class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
@@ -26,6 +26,8 @@ class DataTransformation:
             logger("Removed stop words and punctuations")
             tokenizer = Tokenizer()
             tokenizer.fit_on_texts(df['text'])
+            with open(os.path.join(self.config.root_dir,"tokenizer.pkl"),"wb") as f:
+                joblib.dump(tokenizer,f)
             vocab_size = len(tokenizer.word_index)
             logger(f"Vocabulary size of tokenizer is {vocab_size}")
             word_index = tokenizer.word_index
