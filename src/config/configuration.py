@@ -1,7 +1,8 @@
 from src.constants import *
 import os
 from src.utils.common import read_yaml,create_directories
-from src.entity.config_entity import DataIngestionConfig, DataTransformationConfig,ModelTrainerConfig,ModelTrainerParmas
+from src.entity.config_entity import DataIngestionConfig,DataTransformationConfig,\
+                                    ModelTrainerConfig,ModelTrainerParmas,ModelEvaluateConfig
 
 
 class ConfigurationManager:
@@ -55,3 +56,10 @@ class ConfigurationManager:
             vocab_size= parmas.vocab_size
         )
         return model_trainer_params
+    def model_evaluate_config(self) -> ModelEvaluateConfig:
+        config = self.config.model_evaluate
+        model_evaluate_config = ModelEvaluateConfig(
+            model_path = config.model_path,
+            root_dir= config.root_dir,
+            test_data_path= config.test_data_path
+        )

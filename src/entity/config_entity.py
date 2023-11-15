@@ -24,3 +24,8 @@ class ModelTrainerConfig:
 class ModelTrainerParmas:
     maxlen: int
     vocab_size: int
+@dataclass(frozen=True)
+class ModelEvaluateConfig:
+    model_path: Path
+    root_dir: Path
+    test_data_path:Path

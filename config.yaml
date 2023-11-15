@@ -10,7 +10,12 @@ data_transformation:
   preprocessed_data_path: artifacts/data_transformation/preprocessed
   local_data_file: artifacts/data_ingestion/twitter_data.csv
   root_dir: artifacts/data_transformation
-  model_trainer:
+model_trainer:
   train_data_path: artifacts/data_transformation/train.csv
   model_path: artifacts/model.pkl
   root_dir: artifacts
+model_evaluate:
+  test_data_path: artifacts/data_transformation/test.csv
+  model_path: artifacts/model.pkl
+  root_dir: artifacts
+  
