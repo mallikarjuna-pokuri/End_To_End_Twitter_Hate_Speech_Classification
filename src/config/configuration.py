@@ -1,7 +1,7 @@
 from src.constants import *
 import os
 from src.utils.common import read_yaml,create_directories
-from src.entity.config_entity import DataIngestionConfig, DataTransformationConfig
+from src.entity.config_entity import DataIngestionConfig, DataTransformationConfig,ModelTrainerConfig,ModelTrainerParmas
 
 
 class ConfigurationManager:
@@ -40,3 +40,18 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    def model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=config.root_dir,
+            train_data_path = config.train_data_path,
+            model_path = config.model_path
+        )
+        return model_trainer_config
+    def model_trainer_params(self) ->ModelTrainerParmas:
+        params = self.params.model_trainer_params
+        model_trainer_params = ModelTrainerParmas(
+            maxlen = params.maxlen
+            vocab_size= parmas.vocab_size
+        )
+        return model_trainer_params

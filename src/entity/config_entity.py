@@ -15,3 +15,12 @@ class DataTransformationConfig:
     preprocessed_data_path: Path
     local_data_file: Path
     root_dir: Path
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    train_data_path: Path
+    model_path: Path
+    root_dir: Path
+@dataclass(frozen=True)
+class ModelTrainerParmas:
+    maxlen: int
+    vocab_size: int

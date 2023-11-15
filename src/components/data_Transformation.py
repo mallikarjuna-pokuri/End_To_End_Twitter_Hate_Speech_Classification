@@ -18,10 +18,9 @@ class DataTransformation:
         self.config = config
     def transform_data(self):
         try:
-            config = self.config.data_transformation
             nltk.download('stopwords')
             stop_words = stopwords.words('english')
-            df = pd.read_csv(config.local_data_file)
+            df = pd.read_csv(self.config.local_data_file)
             logger(f"Twitter data read successfully of shape {df.shape}")
             df['text'] = df.text.apply(lambda x: transformed_text(x))
             logger("Removed stop words and punctuations")
@@ -40,7 +39,7 @@ class DataTransformation:
             text2 = tf.keras.utils.pad_sequences(text2,maxlen = max_len,padding = 'post')
             df2 = pd.DataFrame([text2,df['target']])
             train,test= train_test_split(df2)
-            train.to_csv(os.path.join(config.root_dir,"train.csv"),index = False,Header = False)
-            test.to_csv(os.path.join(config.root_dir,"test.csv"),index = False,Header = False)
+            train.to_csv(os.path.join(self.config.root_dir,"train.csv"),index = False,Header = False)
+            test.to_csv(os.path.join(self.config.root_dir,"test.csv"),index = False,Header = False)
         except Exception as e:
             raise Exception
