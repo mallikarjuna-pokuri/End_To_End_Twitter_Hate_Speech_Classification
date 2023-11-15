@@ -9,8 +9,45 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import base64
+import re
 
+@ensure_annotations
+def transformed_text(text:str,stop_words:list) -> str:
+  """removes unneccassary characters and stop words
 
+    Args:
+        text (str): str of the twitter tweet
+        stop_words (list): list of all the stop words provided by nltk
+
+    Returns:
+        str: transformed text
+    """
+  text = text.lower()
+  text = re.sub('[^a-z^\s]',' ',text)
+  text = re.sub('\s+',' ',text)
+  text = text.split(' ')
+  y = []
+  for t in text:
+    if t in stop_words or len(t)<=2:
+      continue
+    y.append(t)
+  return y
+@ensure_annotations
+def tokenized_text(text:str,word_index):
+    """removes unneccassary characters and stop words
+
+    Args:
+        text (str): str of the twitter tweet
+        word_index (list): vocabulary list of tokenizer with indexes
+
+    Returns:
+        str: transformed tokenized text
+    """
+    x = []
+    for t in text:
+        if t in word_index:
+            x.append(word_index[t])
+    return x
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:

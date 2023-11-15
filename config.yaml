@@ -4,5 +4,9 @@ artifacts_root: artifacts
 data_ingestion:
   root_dir: artifacts/data_ingestion
   source_URL: https://github.com/mallikarjuna-pokuri/NLP_Projects/raw/main/twitter_data.csv
-  local_data_file: artifacts/data_ingestion/data.zip
+  local_data_file: artifacts/data_ingestion/twitter_data.csv
   unzip_dir: artifacts/data_ingestion
+data_transformation:
+  preprocessed_data_path: artifacts/data_transformation/preprocessed
+  local_data_file: artifacts/data_ingestion/twitter_data.csv
+  root_dir: artifacts/data_transformation

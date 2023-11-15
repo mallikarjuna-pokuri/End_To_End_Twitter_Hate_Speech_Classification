@@ -1,7 +1,7 @@
 from src.constants import *
 import os
 from src.utils.common import read_yaml,create_directories
-from src.entity.config_entity import DataIngestionConfig
+from src.entity.config_entity import DataIngestionConfig, DataTransformationConfig
 
 
 class ConfigurationManager:
@@ -27,6 +27,16 @@ class ConfigurationManager:
             source_URL=config.source_URL,
             local_data_file=config.local_data_file,
             unzip_dir=config.unzip_dir 
+        )
+
+        return data_ingestion_config
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+
+        data_ingestion_config = DataTransformationConfig(
+            root_dir=config.root_dir,
+            preprocessed_data_path=config.preprocessed_data_path,
+            local_data_file=config.local_data_file,
         )
 
         return data_ingestion_config
