@@ -8,12 +8,19 @@ from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
 from typing import Any
-import base64
 import re
+import nltk
+from nltk.corpus import stopwords
+from keras.models import load_model
+from keras.utils import pad_sequences
+import numpy as np
+
+
+
 
 @ensure_annotations
-def transformed_text(text:str,stop_words:list) -> str:
-  """removes unneccassary characters and stop words
+def transformed_text(text:str,stop_words:set)-> str:
+    """removes unneccassary characters and stop words
 
     Args:
         text (str): str of the twitter tweet
@@ -22,16 +29,11 @@ def transformed_text(text:str,stop_words:list) -> str:
     Returns:
         str: transformed text
     """
-  text = text.lower()
-  text = re.sub('[^a-z^\s]',' ',text)
-  text = re.sub('\s+',' ',text)
-  text = text.split(' ')
-  y = []
-  for t in text:
-    if t in stop_words or len(t)<=2:
-      continue
-    y.append(t)
-  return y
+    text = remove_url(text)
+    text = remove_punctuations(text)
+    text = remove_entity(text)
+    text = remove_stopwords(text,stop_words)
+    return text
 @ensure_annotations
 def tokenized_text(text:str,word_index):
     """removes unneccassary characters and stop words
@@ -48,7 +50,37 @@ def tokenized_text(text:str,word_index):
         if t in word_index:
             x.append(word_index[t])
     return x
+def remove_user_tag(raw_text):
+    regex = r"@([^ ]+)"
+    text = re.sub(regex,"", raw_text)
+    return text
+def remove_url(raw_text):
+    url_regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)\
+    (?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+    text = re.sub(url_regex, '', raw_text)
 
+    return text
+def remove_entity(raw_text):
+    entity_regex = r"&[^\s;]+;"
+    text = re.sub(entity_regex, "", raw_text)
+    return text
+def remove_punctuations(raw_text):
+    text = re.sub('[^a-z^A-Z]',' ',raw_text)
+    text = re.sub(' \s+',' ',text)
+    text = text.lower()
+    return text
+def remove_stopwords(raw_text,stop_words):
+    tokenize = nltk.word_tokenize(raw_text)
+    text = [word for word in tokenize if not word in stop_words and len(word)>2]
+    text = " ".join(text)
+    return text
+def predict_tweet(tweet,model,tokenizer,stop_words):
+    transformed_tweet = transformed_text(tweet,stop_words) 
+    tokenized_tweet = tokenizer.texts_to_sequences([transformed_tweet])
+    padded_tokenized_tweet = pad_sequences(tokenized_tweet, maxlen = 24,padding = 'post')
+    val = np.argmax(model.predict(padded_tokenized_tweet,verbose = 0)) 
+    # 0 hate speech 1 offensive language 2 neither
+    return val 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
     """reads yaml file and returns

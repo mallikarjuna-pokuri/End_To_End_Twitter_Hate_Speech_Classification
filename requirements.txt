@@ -8,4 +8,5 @@ scikit-learn
 Flask
 ensure
 python-box
--e .
+fastapi
+#-e .
