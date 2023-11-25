@@ -4,11 +4,14 @@ from src.config.configuration import ConfigurationManager
 from main import predicted_tweet_type
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 
-
+class TextInput(BaseModel):
+    textInput: str
+'''
 config = ConfigurationManager()
 model_evaluate_config = config.model_evaluate_config()
-
+'''
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -18,12 +21,12 @@ async def read_form(request:Request):
 
 # Define the route to handle form submission
 @app.post("/predict")
-async def submit_text(textInput: str):
+async def submit_text(textInput: TextInput):
     # Perform any processing with the submitted text here
     # For demonstration purposes, just printing the text
     print(f"Submitted Text: {textInput}")
     result = predicted_tweet_type(textInput)
-    return {"result":result}
+    return {'result':result}
 '''
 @app.get('/',tags = ["index"])
 def welcome():

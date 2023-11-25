@@ -13,16 +13,20 @@
             <input type="button" value="Submit" onclick="submitForm()">
         </form>
     </div>
+    <div id="resultContainer"></div>
 
     <script>
-        function submitForm() {
+        async function submitForm() {
             var tweetInput = document.getElementById("textInput").value;
             
+            if (!tweetInput){
+                alert("Please provide tweet as an input");
+            }
             // Create a JSON object with the input data
-            var jsonData = { "textInput": tweetInput };
+            var jsonData = { "textInput": "tweetInput "};
 
             // Send a POST request to the /predict endpoint
-            fetch('http://127.0.0.1:8000/predict', {
+            const result = await fetch('http://127.0.0.1:8000/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,11 +36,17 @@
             .then(response => response.json())
             .then(data => {
                 // Handle the response data as needed
-                console.log(data);
+                alert("the input tweet is" +data["result"]);
+                console.log(data["result"]);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
+        }
+        function displayResult(result) {
+            // Update the HTML content with the result
+            console.log(result)
+            document.getElementById("resultContainer").innerHTML = "Result: " + data;
         }
     </script>
 </body>

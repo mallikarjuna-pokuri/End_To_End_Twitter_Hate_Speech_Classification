@@ -12,6 +12,7 @@ tokenizer = joblib.load(os.path.join("artifacts","tokenizer.pkl"))
 
 
 def predicted_tweet_type(tweet):
+    tweet = str(tweet)
     val = predict_tweet(tweet,model,tokenizer,stop_words)
     if val==0:
             return "Hate Speech"
