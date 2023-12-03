@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 #models
+artifacts/*.h5
+artifacts/*.pkl
 artifacts/model.pkl
 artifacts/model.h5
 # Distribution / packaging
