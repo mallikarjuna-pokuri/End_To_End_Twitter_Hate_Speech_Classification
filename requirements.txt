@@ -9,4 +9,5 @@ Flask
 ensure
 python-box
 fastapi
+torch
 #-e .

@@ -14,7 +14,8 @@ from nltk.corpus import stopwords
 from keras.models import load_model
 from keras.utils import pad_sequences
 import numpy as np
-
+import torch
+import torch.nn as nn
 
 
 
@@ -192,3 +193,7 @@ def get_size(path: Path) -> str:
     """
     size_in_kb = round(os.path.getsize(path)/1024)
     return f"~ {size_in_kb} KB"
+def one_hot_ce_loss(outputs, targets):
+    criterion = nn.CrossEntropyLoss()
+    _, labels = torch.max(targets, dim=1)
+    return criterion(outputs, labels)

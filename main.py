@@ -15,8 +15,8 @@ def predicted_tweet_type(tweet):
     tweet = str(tweet)
     val = predict_tweet(tweet,model,tokenizer,stop_words)
     if val==0:
-            return "Hate Speech"
+            return "Given Tweet is Predicted as Hate Speech"
     elif val==1:
-        return "Offensive Language"
+        return "Given Tweet is Predicted as Offensive Language"
     else:
-        return "Neither"
+        return "Given Tweet Predicted as neither Hate Speech nor Offensive Language"

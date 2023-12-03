@@ -7,6 +7,7 @@ __pycache__/
 *.so
 #models
 artifacts/model.pkl
+artifacts/model.h5
 # Distribution / packaging
 .Python
 build/

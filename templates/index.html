@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastAPI Form</title>
+    <title>Hate Speech Tweet Classification</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <br>
     <div class="input-container">
         <form id="predictionForm">
             <input type="text" id="textInput" name="textInput" placeholder="Enter Tweet...">
@@ -36,18 +38,88 @@
             .then(response => response.json())
             .then(data => {
                 // Handle the response data as needed
-                alert("the input tweet is" +data["result"]);
+                alert(data["result"]);
                 console.log(data["result"]);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
         }
-        function displayResult(result) {
-            // Update the HTML content with the result
+
             console.log(result)
             document.getElementById("resultContainer").innerHTML = "Result: " + data;
-        }
+
     </script>
+    <style>
+        /* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Container Styles */
+.input-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+form {
+  text-align: center;
+
+}
+
+/* Input Styles */
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Button Styles */
+input[type="button"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background-color: #0056b3;
+}
+
+/* Result Container Styles */
+#resultContainer {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  color: #155724;
+}
+
+    </style>
 </body>
 </html>
