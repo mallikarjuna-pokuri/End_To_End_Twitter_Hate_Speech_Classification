@@ -1,17 +1,10 @@
-FROM python:3.8
-
-COPY . /app
-# set a directory for the app
+FROM python:3.8-slim-buster
 WORKDIR /app
+COPY . /app
 
-# copy all the files to the container
+RUN apt update -y && apt install awscli -y
 
-
-# install dependencies
-RUN pip install -r requirements.txt
-
-# define the port number the container should expose
-EXPOSE 5000
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 unzip -y && pip install -r requirements.txt
 
 # run the command
 CMD ["uvicorn", "app:app", "--reload"]
