@@ -67,6 +67,7 @@ To set up the project locally, follow these steps:
 ```bash
 git clone https://github.com/mallikarjuna-pokuri/End_To_End_Twitter_Hate_Speech_Classification.git
 cd End_To_End_Twitter_Hate_Speech_Classification
+python -m venv .venv # create virtual environment
 pip install -r requirements.txt
 ```
 

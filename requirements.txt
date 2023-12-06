@@ -4,10 +4,15 @@ seaborn
 matplotlib
 tensorflow
 nltk
+joblib
 scikit-learn
 Flask
 ensure
 python-box
+uvicorn
 fastapi
-torch
-#-e .
+pydantic
+python-box
+pyYAML
+ensure
+-e .
